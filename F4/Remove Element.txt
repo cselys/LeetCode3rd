@@ -1,0 +1,32 @@
+public class Solution {
+    public int removeElement(int[] A, int elem) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int len=A.length;
+        int i=0, cur=0;
+        while(i<len){
+        while(i<len && A[i]==elem)i++;
+        if(i<len)
+        A[cur++]=A[i++];        
+        }
+        return cur;
+    }
+}
+
+
+--------------
+
+public class Solution {
+    public int removeElement(int[] A, int elem) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int iL=A.length;
+        
+        int j=0;
+        for(int i=0;i<iL;i++){
+            if(A[i]!=elem) A[j++]=A[i];
+            
+        }
+        return j;
+    }
+}

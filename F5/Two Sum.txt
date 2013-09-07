@@ -1,0 +1,20 @@
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int[] ret=new int[2];
+        HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+        
+        for(int i=0;i<numbers.length;i++){
+            if(map.containsKey(numbers[i])){
+                ret[0]=map.get(numbers[i])+1;
+                ret[1]=i+1;
+                return ret;
+            }              
+            else
+            map.put(target-numbers[i],i);      
+        }
+        
+        return ret;
+    }
+}
