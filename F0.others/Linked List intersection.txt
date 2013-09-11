@@ -1,0 +1,43 @@
+http://februus.iteye.com/blog/1488568
+
+    /** 
+         * 寻找两个单链表第一个相同的元素。 
+         * @param A 第一个单链表 
+         * @param B 第二个单链表 
+         * @return 若存在相同元素，则返回其值；否则返回-1并打印消息 
+         */  
+        public static int findSame(FLinkedList A, FLinkedList B){  
+            int m = A.length();  
+            int n = B.length();  
+            FLinkedNode aHead = A.getElem(0);  
+            FLinkedNode bHead = B.getElem(0);  
+            if(m >= n){  
+                int s = m - n;  
+                for(int i = 0; i < s; i ++){  
+                    aHead = aHead.getNext();  
+                } // end for  
+                while(aHead.getNext() != null){  
+                    if(aHead.getValue() == bHead.getValue()){  
+                        return aHead.getValue();  
+                    }else{  
+                        aHead = aHead.getNext();  
+                        bHead = bHead.getNext();  
+                    } // end if-else  
+                } // end while  
+            }else{  
+                int s = n - m;  
+                for(int i = 0; i < s; i ++){  
+                    bHead = bHead.getNext();  
+                } // end for  
+                while(aHead.getNext() != null){  
+                    if(aHead.getValue() == bHead.getValue()){  
+                        return bHead.getValue();  
+                    }else{  
+                        aHead = aHead.getNext();  
+                        bHead = bHead.getNext();  
+                    } // end if-else  
+                } // end while  
+            } // end if-else  
+            System.out.println("没有找到相同的元素！！");  
+            return -1;  
+        } // end findSame  

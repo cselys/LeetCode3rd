@@ -1,0 +1,32 @@
+http://blog.sina.com.cn/s/blog_b9285de20101gwnn.html
+
+http://www.java3z.com/cwbwebhome/article/article19/res056.html?id=3867
+
+
+class Node
+
+{
+
+    int count;
+
+    Node[] children=new Node[26];
+
+    void Add(String s, int i)
+
+    {
+
+        if(s.length()==i) return;
+
+        int index=s.charAt(i)-'a';
+
+        if(children[index]==null)
+
+            children[index]=new Node();
+
+        children[index].Add(s, i+1);
+
+        children[index].count++;
+
+    }
+
+}
