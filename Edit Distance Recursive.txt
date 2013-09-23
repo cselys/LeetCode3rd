@@ -1,0 +1,18 @@
+    int EditDistance ( String1, String2, m, n )
+
+    {
+
+    If ( String2.length == n ) return (String1.length-m)
+
+    If ( String1.length == m) return (String2.length-n)
+
+    If ( String1[m] == String2[n] ) return EditDistance(String1, String2, m+1, n+1 )
+
+    If ( String1[m] != String2[n] )
+
+       return 1+min(min(EditDistance(String1, String2, m, n+1), EditDistance(String1, String2, m+1, n)), EditDistance(String1, String2, m+1,n+1))
+
+    }
+
+
+http://allaboutalgorithms.wordpress.com/2011/10/31/edit-distance-between-two-strings-using-recursion/

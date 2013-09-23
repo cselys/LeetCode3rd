@@ -1,0 +1,26 @@
+public class SelectGasStation {
+    public int selectGasStation(int[] a, int[] g) {
+        int iStart=0,iCur=0;
+        int n=a.length;
+        for(int i=0;i<n;i++){
+            int  iSuma=0, iSumg=0;
+            if(a[i]>=g[i])iStart=i; else continue;
+            iCur=iStart;
+            while(iCur<n){
+                iSuma+=a[iCur]; iSumg+=g[iCur];
+                if(iSuma<iSumg){i=iCur; break;}
+                iCur++;
+            }
+            if(iCur==n){
+                int j;
+                for (j=0;j<iStart;j++){
+                    iSuma+=a[j]; iSumg+=g[j];
+                    if(iSuma<iSumg){i=iStart+1; break;}
+                }
+                if(j==iStart) return iStart;
+            }            
+        }
+        return -1;
+        
+    }
+}

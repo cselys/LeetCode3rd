@@ -1,0 +1,87 @@
+//  
+// class ListNode { 
+//     public int val; 
+//     public ListNode next; 
+//     public ListNode(int v) { val = v; next = null; } 
+// } 
+// 
+ 
+class Solution { 
+    public ListNode reverseList(ListNode n) { 
+       ListNode n3 = n;
+ 
+        ListNode n2 = null;
+ 
+        ListNode n1 = null;
+ 
+        while (n3!= null) {
+ 
+            n1 = n2;
+ 
+            n2 = n3;
+ 
+            n3 = n2.next;
+ 
+            n2.next = n1;
+ 
+        }
+ 
+       // head = n2;
+        return n2;
+    } 
+}
+
+
+
+http://edgblog.wordpress.com/2007/12/06/reversing-a-singly-linked-list-in-java/
+
+---------------------
+recursive
+
+//  
+// class ListNode { 
+//     public int val; 
+//     public ListNode next; 
+//     public ListNode(int v) { val = v; next = null; } 
+// } 
+// 
+ 
+class Solution { 
+   
+    public ListNode reverseList(ListNode n) { 
+       
+     
+    if (n == null || n.next==null) return n;
+     ListNode nextItem = n.next;
+     n.next = null;
+     ListNode reverseRest = reverseList(nextItem);
+     nextItem.next = n;
+     return reverseRest;
+}
+     
+}
+
+
+
+
+--------------------
+
+//recursive reverse
+ 
+    public void reverse (Node n1, Node n2){
+ 
+        Node n3 = n2.next;
+ 
+        n2.next = n1;
+ 
+        if (n3!=null){
+ 
+            reverse (n2, n3);
+ 
+        }else {
+ 
+            head = n2;
+ 
+        }
+ 
+    }
