@@ -1,0 +1,139 @@
+面试中让用OOD方法设计一个系统，比如说电梯。是不是应该请把系统需求说清楚，比
+如说电梯响应请求的策略，是先来先服务，还是就近服务。我觉得用户应该提供策略，
+programmer根据用户的要求设计软件系统。
+
+而面试的时候，interviewer往往说的很笼统，就说让你设计一个电梯系统，而设计一
+个实际系统是要考虑很多问题，不仅仅是软件设计的问题，interviewer是不是应该提
+供准确的需求呢。
+
+另一个例子，设计一个PARKING LOT。我们平常的PARKINGLOT都是自己进去停车，然后
+出门时候付钱，比较简单，我一开始按这个思路设计，但跟interviewer说的时候，他
+问我怎么分配parking spaces，他认为系统应该自动分配，而不是司机自己进去找。这
+样我就要从新设计，耽误了时间，打乱了思路。是不是应该一开始就和INTERVIEWER敲
+定系统是怎么工作的，然后在OOD设计。
+
+大家都是怎么做的？
+
+
+感觉面试官也没有固定答案但还算满意我的回答
+前面有人说是client/server，那你得设计server side怎么做
+
+当时我给了一个object model并大概pseudo code实现了关键的几个class
+还有需求也是我当时定义的，就是说
+你设计的电梯应该是什么样子有什么功能等
+感觉当时面试官对这个也比较重视
+
+这题太open，不同的面试官期待的东西不一样
+最好能试探或感应一下面试官想要什么
+
+
+
+
+贴个我以前写的，仅供参考，肯定不是标准解
+包括控制系统和电梯厢两个类
+
+class ElevatorSystem
+{
+public:
+    struct SystemSetup{
+        int totalFloors;
+        int totalElevators;
+    };
+
+    ElevatorSystem(SystemSetup &);
+    ~ElevatorSystem(void);
+
+    void requestUp(int floor);
+    void requestDown(int floor);
+
+private:
+    int totalFloors;
+    int totalElevators;
+    Elevator **elevators;
+    enum RequestType {NONE, UP, DOWN};
+    RequestType *requests;
+    void resetRequest(int floor);
+};
+
+
+class Elevator
+{
+public:
+    Elevator(int id, int totalFloors);
+    ~Elevator(void);
+
+    enum ElevatorStatus {RUNNING, IDLE, STOPPED};
+    enum RunningStatus {UP, DOWN, STAND};
+    ElevatorStatus elevatorStatus;
+    RunningStatus runningStatus;
+
+    void stop();
+    int currentFloor;
+    int *stopRequestList;            // one stop request slot on each floor
+    queue<int> destinationList;
+    
+private:
+    int id;
+    int totalFloors;
+    int currentPassengers;
+};
+
+
+
+把照片用ocr拷了前面几段话
+
+Design  an elevator system at a shopping complex using java threads to 
+support multithreading.
+
+
+Solution: Let us understand the scenarios which need to be considered while 
+designing an elevator system. Shoppers arrive in the building at random 
+times. During the time a shopper is in the building he may request elevator 
+service from the floor where he is currently located. The request always 
+specifies a direction, up or down. Shoppers on the lowest floor may only 
+request up service; those on the top floor may only request down service; 
+all others may request either service. 
+
+On entering an elevator a shopper selects a destination floor. The elevator 
+then closes its doors and moves to that destination floor, possibly stopping
+on intermediate floors to deliver other shoppers who may have selected 
+intermediate floors. When an elevator arrives at a destination floor it 
+stops, opens its doors, and discharges any shoppers who have selected that 
+floor. Having stopped, opened its doors and unloaded its passengers, the 
+elevator then admits any shoppers who may be waiting for service in the 
+direction the elevator may be currently moving, subject to the restriction 
+that the elevator may not exceed its capacity to carry passengers. Shoppers 
+who do not succeed in boarding the elevator because it is full must make a 
+fresh request to obtain service at the floor on which they are waiting. 
+
+For our implementation, we can assume that the elevator moves passengers 
+from floor to floor in simulation. The basic objects of the system are: 
+Elevator, Person, Building and the Simulator which controls the elevators. 
+Elevator class keeps track of current state of it (whether it is moving up 
+or down), its capacity, set-vice time required at each floor and time 
+required to move to next floor, current number of passengers on elevator, 
+number of passengers getting off at each floor while moving etc... 
+Operations on Elevator object are synchronized to make the system thread 
+safe. 
+
+
+21这种问题都起始于OO Design，那些Object，怎么关系啥的。帮人帮到底，送佛送到西，
+讲讲通常情况下，这种design问题的答题方法（对于多数面试官适用，当然也有例外）
+。
+这种问题首先明确要干啥，也就是需求分析，不要上来就开搞。比如parking lot，设计
+是parking lot的管理？还是charge system？还是啥其他相关问题。这个很重要，决定
+了你的设计。
+其次，要求几个具体user case。比如，parking lot，可能要求用户能walk-in and pa
+rk；要求用户能提前预订；能cancel reservation。user caess也决定了你的design，
+也体现了你良好的沟通能力。
+然后就是Logical Model或者physical model的design。需要啥Objects（比如 Garage,
+Lot, Customer, Car）。
+然后他们的关系，比如Garage to Lot (1 - m)。在兽一下OO的继承关系(比如car有tru
+ck, sedan, SUV啥的；Lot有大lot，小lot，残帕啥的)
+然后根据
+
+http://www.weiming.info/zhuti/JobHunting/31956527/
+
+
+
+http://yang-algorithm.blogspot.com/2010/01/amazon-interview-question-design-oo.html
