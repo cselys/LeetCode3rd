@@ -1,3 +1,69 @@
+paul198247 (S.Battier) 于 (Mon Jul 12 00:30:59 2010, 美东) 提到:
+
+如果让设计一个多部电梯的控制系统，画出uml图。请问大概要设计哪些类，类之间的
+关系？
+我是最近才看OOD的，比较菜
+我是这么想的：
+主系统
+System包含了taskcenter，elevator
+任务系统taskcenter负责给不同电梯增加任务，删除任务，响应不同电梯内的任务请求
+，每层用户的请求
+
+电梯elevator 包括了自己的任务list，方向，以及状态。电梯类有2个子类，一个是UI
+_elevator，一个是task_elevator。UI_elevator函数有addrequest，
+removerequest，askforhelp，opendoor，closedoor这些是给电梯内的用户的；task_
+elevator有getdirection，getcondition，getrequest，addtask， removetask等函数
+，这些是给taskcenter调用。
+
+request 有2种子类，一种是elevatorrequest，是UI_elevator发出的；一种是
+floorrequest，是每层电梯外用户发出的。
+
+taskcenter和request，UI_elevator和request的关系应该是关联关系
+taskcenter和task_elevator的关系应该是聚合吧。
+
+
+
+
+☆─────────────────────────────────────☆
+
+  boyjemmy (jemmyboy) 于 (Mon Jul 12 18:52:30 2010, 美东) 提到:
+
+先说说我对单个电梯设计的想法（欢迎批评指正）
+
+1 Elevator Object, 应该包含physical components: Door, Indicator Lights, 
+Control Panel. 一些性质(Non physical properties): Speed, Num of floors, 
+capacity, max weight. 所能从事的操作methods: moveto, stop, ringbell。然后电
+梯应该能够handle user request, 所以还应有一个requestQueue, 电梯应该根据自己
+的state 和 requestQueue做出moveto, stop的决定，所以有一component: 
+requestHandler(Strategy pattern),可以set不同的requestHanlder.
+
+2 Door, properties: State, method: open, close， getState.
+
+3 Indicator light(指示所到楼层），properties: state; method: on, off, 
+getState
+
+4 Control Panel, 包含physical component: Floor Buttons, Other buttons(也可直
+接把Buttons 当作 elevator的components，还没考虑哪一个方法好）
+
+5 Button, properties: floorNum, Parent Elevator, methods: OnPress(Observer 
+Pattern). 
+
+6 ElevatorRequestHandler: handleRequest(Elevator ele, requestList rlist), 可
+以define 一个interface, 然后又各种不同实现
+
+7 Request: 可以define 一个abstract class, 然后有子类movingRequest, 
+helpRequest doorRequest etc.
+
+
+
+☆─────────────────────────────────────☆
+
+  paul198247 (S.Battier) 于 (Wed Jul 14 00:32:35 2010, 美东) 提到:
+
+考虑的很全面啊,多谢
+
+
+
 面试中让用OOD方法设计一个系统，比如说电梯。是不是应该请把系统需求说清楚，比
 如说电梯响应请求的策略，是先来先服务，还是就近服务。我觉得用户应该提供策略，
 programmer根据用户的要求设计软件系统。
